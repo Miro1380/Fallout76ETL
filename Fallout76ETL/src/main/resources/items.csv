@@ -1,0 +1,9 @@
+id,name,type,level,weight,rarity
+101,T-60 Power Armor,Armor,40,92.0,Rare
+102,Stimpak,Consumable,1,0.0,Common
+103,Gauss Rifle,Weapon,50,15.0,Legendary
+104,,Weapon,20,8.0,Common        <-- MISSING NAME (Invalid)
+105,Nuka-Cola,Consumable,1,1.0,Common
+106,Fat Man,Weapon,-5,30.0,Rare    <-- NEGATIVE LEVEL (Invalid)
+107,Lead Pipe,Weapon,5,3.0,Common
+108,Rusty Spoon,Junk,1,999.0,Junk  <-- SUSPICIOUS WEIGHT (Validation check)
