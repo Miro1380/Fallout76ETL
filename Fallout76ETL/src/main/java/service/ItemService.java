@@ -1,6 +1,6 @@
 package service;
 
-import DTO.GameItem;
+import DTO.ItemDTO;
 import Entity.ItemEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +10,7 @@ import repository.ItemRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -48,11 +49,12 @@ public class ItemService {
                 .toList();
 
         if(!itemEntityList.isEmpty()){
+            log.info("Saving {} items to database", itemEntityList.size());
             itemRepository.saveAll(itemEntityList);
         }
     }
 
-    private ItemEntity toEntity(GameItem dto){
+    private ItemEntity toEntity(ItemDTO dto){
         ItemEntity itemEntity = new ItemEntity();
         itemEntity.setName(dto.getName());
         itemEntity.setType(dto.getType());
@@ -61,6 +63,29 @@ public class ItemService {
         itemEntity.setRarity(dto.getRarity());
         itemEntity.setMigrationDate(LocalDateTime.now());
         return itemEntity;
+    }
+
+    private ItemDTO toGameItemDTO (ItemEntity item){
+        ItemDTO itemDTO = new ItemDTO();
+        itemDTO.setName(item.getName());
+        itemDTO.setType(item.getType());
+        itemDTO.setLevel(item.getLevel());
+        itemDTO.setWeight(item.getWeight());
+        itemDTO.setRarity(item.getRarity());
+        return itemDTO;
+    }
+
+    public Optional<ItemDTO> getById(Long id){
+        return itemRepository.findById(id).map(this::toGameItemDTO);
+    }
+
+    public List<ItemDTO> getByType(String type){
+        List<ItemDTO> itemList = itemRepository.findByType(type).stream().map(this::toGameItemDTO).toList();
+        if(itemList.isEmpty()){
+            throw new RuntimeException("No items found for type: "+ type);
+        }
+
+        return itemList;
     }
 
 }

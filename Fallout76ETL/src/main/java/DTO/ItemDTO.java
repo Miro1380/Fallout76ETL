@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class GameItem{
+public class ItemDTO {
     @CsvBindByName(column = "id")
     private Integer id;
 
