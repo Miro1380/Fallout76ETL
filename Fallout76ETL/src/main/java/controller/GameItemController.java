@@ -26,4 +26,11 @@ public class GameItemController {
         List<ItemDTO> list = itemService.getByType(type);
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("/{level}")
+    public ResponseEntity<ItemDTO> getItemBy(@PathVariable Integer level){
+        return itemService.getByLevel(level)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

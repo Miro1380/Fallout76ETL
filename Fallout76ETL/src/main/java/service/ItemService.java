@@ -88,4 +88,8 @@ public class ItemService {
         return itemList;
     }
 
+    public Optional<ItemDTO> getByLevel(Integer level){
+        return itemRepository.findByLevel(level).map(this::toGameItemDTO);
+    }
+
 }
