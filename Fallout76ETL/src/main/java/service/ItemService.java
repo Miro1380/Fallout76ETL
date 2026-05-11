@@ -84,12 +84,23 @@ public class ItemService {
         if(itemList.isEmpty()){
             throw new RuntimeException("No items found for type: "+ type);
         }
-
         return itemList;
     }
 
-    public Optional<ItemDTO> getByLevel(Integer level){
-        return itemRepository.findByLevel(level).map(this::toGameItemDTO);
+    public List<ItemDTO> getByLevel(Integer level){
+       List<ItemDTO> itemsList = itemRepository.findByLevel(level).stream().map(this::toGameItemDTO).toList();
+       if(itemsList.isEmpty()){
+           throw new RuntimeException("No Items found for level:" + level);
+       }
+       return itemsList;
+    }
+
+    public List<ItemDTO> getByWeight(Double weight){
+        List<ItemDTO> ItemsList = itemRepository.findByWeight(weight).stream().map(this::toGameItemDTO).toList();
+        if(ItemsList.isEmpty()){
+            throw new RuntimeException("No Items found for weight: "+ weight);
+        }
+        return ItemsList;
     }
 
 }

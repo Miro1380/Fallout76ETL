@@ -28,9 +28,15 @@ public class GameItemController {
     }
 
     @GetMapping("/{level}")
-    public ResponseEntity<ItemDTO> getItemBy(@PathVariable Integer level){
-        return itemService.getByLevel(level)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<ItemDTO>> getItemByLevel(@PathVariable Integer level){
+        List<ItemDTO> itemsList = itemService.getByLevel(level);
+        return ResponseEntity.ok(itemsList);
     }
+
+    @GetMapping("/{weight}")
+    public ResponseEntity<List<ItemDTO>> getItemByWeight(@PathVariable Double weight){
+        List<ItemDTO> ItemsList = itemService.getByWeight(weight);
+        return ResponseEntity.ok(ItemsList);
+    }
+
 }

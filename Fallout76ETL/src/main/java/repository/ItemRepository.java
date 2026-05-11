@@ -12,5 +12,7 @@ import java.util.Optional;
 public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
 
     List<ItemEntity> findByType(String type);
-    Optional<ItemEntity> findByLevel(Integer level);
+    List<ItemEntity> findByWeight(Double weight);
+    List<ItemEntity> findByLevel(Integer level);
+
 }
